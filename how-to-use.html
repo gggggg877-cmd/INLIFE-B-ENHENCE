@@ -18,10 +18,10 @@
   .logo{width:48px;height:48px;border-radius:10px;background:linear-gradient(135deg,#ffc7dd,#ff9bc7);display:flex;align-items:center;justify-content:center;color:#8b0540;font-weight:800}
   h1{margin:0;font-size:1.05rem;color:var(--accent)}
   .card{background:#fff;border-radius:14px;padding:12px;box-shadow:0 8px 24px rgba(8,8,8,0.06);margin-top:10px}
-  .center {text-align:center}
+  .center{text-align:center}
   img.step-img{width:78%;max-width:320px;border-radius:12px;margin-top:6px}
   .controls{display:flex;gap:8px;margin-top:12px}
-  button {flex:1;padding:12px;border-radius:10px;border:0;font-weight:700;cursor:pointer}
+  button{flex:1;padding:12px;border-radius:10px;border:0;font-weight:700;cursor:pointer}
   .btn-primary{background:var(--accent);color:#fff}
   .btn-ghost{background:#fff;border:1px solid rgba(0,0,0,0.06)}
   /* camera area */
@@ -33,6 +33,20 @@
   .progress-dot{width:10px;height:10px;border-radius:999px;background:#ffd6e7;display:inline-block;margin:0 4px;opacity:0.35}
   footer{margin-top:12px;text-align:center;color:var(--muted);font-size:13px}
   @media(min-width:720px){:root{--container:720px}}
+
+  #startCamBtn{
+    position:absolute;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+    background:var(--accent);
+    color:#fff;
+    border:none;
+    border-radius:10px;
+    padding:12px 20px;
+    font-weight:700;
+    z-index:60;
+  }
 </style>
 </head>
 <body>
@@ -48,20 +62,22 @@
     <main>
       <div id="stepCard" class="card center">
         <div id="progress" style="margin-bottom:8px">
-          <!-- 10 steps now (0..9) -->
-          <span class="progress-dot" id="pd1"></span><span class="progress-dot" id="pd2"></span><span class="progress-dot" id="pd3"></span>
-          <span class="progress-dot" id="pd4"></span><span class="progress-dot" id="pd5"></span><span class="progress-dot" id="pd6"></span>
-          <span class="progress-dot" id="pd7"></span><span class="progress-dot" id="pd8"></span><span class="progress-dot" id="pd9"></span><span class="progress-dot" id="pd10"></span>
+          <span class="progress-dot" id="pd1"></span><span class="progress-dot" id="pd2"></span>
+          <span class="progress-dot" id="pd3"></span><span class="progress-dot" id="pd4"></span>
+          <span class="progress-dot" id="pd5"></span><span class="progress-dot" id="pd6"></span>
+          <span class="progress-dot" id="pd7"></span><span class="progress-dot" id="pd8"></span>
+          <span class="progress-dot" id="pd9"></span><span class="progress-dot" id="pd10"></span>
         </div>
 
         <h2 id="title">Step 1 — Prepare product</h2>
         <img id="stepImg" class="step-img" src="cream.jpg" alt="Step image">
 
-        <!-- Camera area (hidden until needed) -->
+        <!-- Camera area -->
         <div id="cameraArea" class="camera-wrap" style="display:none">
           <video id="cam" autoplay playsinline muted></video>
           <canvas id="overlay"></canvas>
           <div id="timerBubble" class="timer-bubble">00</div>
+          <button id="startCamBtn">Start Camera</button>
         </div>
 
         <div id="note" class="small-note">Keep the product within reach.</div>
@@ -81,196 +97,142 @@
 
 <script>
 (() => {
-  // Steps: inserted "Repeat circular motion" after circular motion (uses step3.jpg) with 20s
   const steps = [
-    { id:0, title:"Prepare product", image:"cream.jpg", camera:false, timer:0, note:"Keep the product within reach." },
-    { id:1, title:"Position camera ~1 metre", image:"camera.jpg", camera:false, timer:0, note:"Place your phone on a stable surface at chest height." },
-    { id:2, title:"Start camera preview", image:"", camera:true, timer:0, note:"Align yourself within the guide." },
-    { id:3, title:"Adjust clothing", image:"clothes.jpg", camera:true, timer:0, note:"Wear a thin, fitted top for clear guidance." },
-    { id:4, title:"Alignment check", image:"", camera:true, timer:5, note:"Please wait — align within guide." },
-    { id:5, title:"Apply product", image:"step1.jpg", camera:true, timer:20, note:"Spread product evenly." },
-    { id:6, title:"Circular motion", image:"step2.jpg", camera:true, timer:20, note:"Move in small circles." },
-    // NEW step inserted here:
-    { id:7, title:"Repeat circular motion", image:"step3.jpg", camera:true, timer:20, note:"Repeat the circular movement." },
-    { id:8, title:"Upward motion", image:"step4.jpg", camera:true, timer:20, note:"Lift movement upward to centre." },
-    { id:9, title:"Press repetitions", image:"step5.jpg", camera:true, timer:10, note:"Press gently 5 times." },
-    { id:10, title:"Session complete — great work!", image:"", camera:false, timer:0, note:"Visit tomorrow for your next session." }
+    {id:0,title:"Prepare product",image:"cream.jpg",camera:false,timer:0,note:"Keep the product within reach."},
+    {id:1,title:"Position camera ~1 metre",image:"camera.jpg",camera:false,timer:0,note:"Place your phone on a stable surface at chest height."},
+    {id:2,title:"Start camera preview",image:"",camera:true,timer:0,note:"Align yourself within the guide."},
+    {id:3,title:"Adjust clothing",image:"clothes.jpg",camera:true,timer:0,note:"Wear a thin, fitted top for clear guidance."},
+    {id:4,title:"Alignment check",image:"",camera:true,timer:5,note:"Please wait — align within guide."},
+    {id:5,title:"Apply product",image:"step1.jpg",camera:true,timer:20,note:"Spread product evenly."},
+    {id:6,title:"Circular motion",image:"step2.jpg",camera:true,timer:20,note:"Move in small circles."},
+    {id:7,title:"Repeat circular motion",image:"step3.jpg",camera:true,timer:20,note:"Repeat the circular movement."},
+    {id:8,title:"Upward motion",image:"step4.jpg",camera:true,timer:20,note:"Lift movement upward to centre."},
+    {id:9,title:"Press repetitions",image:"step5.jpg",camera:true,timer:10,note:"Press gently 5 times."},
+    {id:10,title:"Session complete — great work!",image:"",camera:false,timer:0,note:"Visit tomorrow for your next session."}
   ];
 
-  let idx = 0;
-  const titleEl = document.getElementById('title');
-  const imgEl = document.getElementById('stepImg');
-  const noteEl = document.getElementById('note');
-  const cameraArea = document.getElementById('cameraArea');
-  const cam = document.getElementById('cam');
-  const overlay = document.getElementById('overlay');
-  const timerBubble = document.getElementById('timerBubble');
-  const nextBtn = document.getElementById('nextBtn');
-  const backBtn = document.getElementById('backBtn');
+  let idx=0, stream=null, countdownInterval=null, overlayAnimationId=null;
+  const titleEl=document.getElementById('title'),
+        imgEl=document.getElementById('stepImg'),
+        noteEl=document.getElementById('note'),
+        cameraArea=document.getElementById('cameraArea'),
+        cam=document.getElementById('cam'),
+        overlay=document.getElementById('overlay'),
+        timerBubble=document.getElementById('timerBubble'),
+        nextBtn=document.getElementById('nextBtn'),
+        backBtn=document.getElementById('backBtn'),
+        startCamBtn=document.getElementById('startCamBtn');
 
-  // progress dots now up to 10
-  const progressDots = Array.from({length:10}, (_,i)=> document.getElementById('pd'+(i+1)));
-
-  let stream = null;
-  let countdownInterval = null;
-  let overlayAnimationId = null;
-
-  function updateProgress(){
-    progressDots.forEach((d,i) => { if(d) d.style.opacity = (i <= idx ? '1' : '0.35'); });
-  }
+  const progressDots=[...Array(10)].map((_,i)=>document.getElementById('pd'+(i+1)));
 
   async function openCameraIfNeeded(){
-    if (!stream){
-      try{
-        stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' }, audio: false});
-        cam.srcObject = stream;
-      }catch(e){
-        console.warn('Camera permission denied', e);
-      }
+    if (stream) return;
+    try{
+      stream=await navigator.mediaDevices.getUserMedia({
+        video:{facingMode:{ideal:'user'}},
+        audio:false
+      });
+      cam.srcObject=stream;
+      startCamBtn.style.display='none';
+    }catch(e){
+      alert('Please allow camera access to continue.');
+      console.warn('Camera permission issue:',e);
     }
   }
 
+  startCamBtn.addEventListener('click',()=>openCameraIfNeeded());
+
   function stopCamera(){
-    if (stream){
+    if(stream){
       stream.getTracks().forEach(t=>t.stop());
-      stream = null;
-      cam.srcObject = null;
+      stream=null;
+      cam.srcObject=null;
     }
+  }
+
+  function updateProgress(){
+    progressDots.forEach((d,i)=>{if(d)d.style.opacity=(i<=idx?'1':'0.35');});
   }
 
   function showOverlay(show){
-    if (!show){
-      overlay.style.display = 'none';
-      if (overlayAnimationId) { cancelAnimationFrame(overlayAnimationId); overlayAnimationId = null; }
+    if(!show){
+      overlay.style.display='none';
+      if(overlayAnimationId)cancelAnimationFrame(overlayAnimationId);
       return;
     }
-    overlay.style.display = 'block';
-    overlay.width = overlay.clientWidth;
-    overlay.height = overlay.clientHeight;
-    const ctx = overlay.getContext('2d');
-
-    let start = performance.now();
-    function frame(t){
+    overlay.style.display='block';
+    overlay.width=overlay.clientWidth; overlay.height=overlay.clientHeight;
+    const ctx=overlay.getContext('2d');
+    function frame(){
       ctx.clearRect(0,0,overlay.width,overlay.height);
-      const w = overlay.width, h = overlay.height;
-
-      // left ellipse
+      const w=overlay.width,h=overlay.height;
       ctx.save();
-      ctx.strokeStyle = 'rgba(255,255,255,0.95)';
+      ctx.strokeStyle='rgba(255,255,255,0.95)';
       ctx.setLineDash([8,6]);
-      ctx.lineWidth = 2;
-      ctx.beginPath();
-      ctx.ellipse(w*0.35, h*0.42, w*0.18, h*0.14, 0, 0, Math.PI*2);
-      ctx.stroke();
-
-      // right ellipse
-      ctx.beginPath();
-      ctx.ellipse(w*0.65, h*0.42, w*0.18, h*0.14, 0, 0, Math.PI*2);
-      ctx.stroke();
-
-      // face box
+      ctx.lineWidth=2;
+      ctx.beginPath(); ctx.ellipse(w*0.35,h*0.42,w*0.18,h*0.14,0,0,Math.PI*2); ctx.stroke();
+      ctx.beginPath(); ctx.ellipse(w*0.65,h*0.42,w*0.18,h*0.14,0,0,Math.PI*2); ctx.stroke();
       ctx.setLineDash([4,4]);
-      ctx.strokeStyle = 'rgba(255,255,255,0.85)';
-      ctx.strokeRect(w*0.38, h*0.12, w*0.24, h*0.16);
-
-      // modesty soft mask
-      ctx.fillStyle = 'rgba(0,0,0,0.18)';
-      const mx = w*0.25, my = h*0.32, mw = w*0.5, mh = h*0.36;
-      roundRect(ctx, mx, my, mw, mh, 20);
-      ctx.fill();
-
+      ctx.strokeStyle='rgba(255,255,255,0.85)';
+      ctx.strokeRect(w*0.38,h*0.12,w*0.24,h*0.16);
+      ctx.fillStyle='rgba(0,0,0,0.18)';
+      const mx=w*0.25,my=h*0.32,mw=w*0.5,mh=h*0.36;
+      ctx.beginPath();
+      ctx.moveTo(mx+20,my);
+      ctx.arcTo(mx+mw,my,mx+mw,my+mh,20);
+      ctx.arcTo(mx+mw,my+mh,mx,my+mh,20);
+      ctx.arcTo(mx,my+mh,mx,my,20);
+      ctx.arcTo(mx,my,mx+mw,my,20);
+      ctx.closePath(); ctx.fill();
       ctx.restore();
-      overlayAnimationId = requestAnimationFrame(frame);
+      overlayAnimationId=requestAnimationFrame(frame);
     }
-    overlayAnimationId = requestAnimationFrame(frame);
+    overlayAnimationId=requestAnimationFrame(frame);
   }
 
-  function roundRect(ctx,x,y,w,h,r){ ctx.beginPath(); ctx.moveTo(x+r,y); ctx.arcTo(x+w,y,x+w,y+h,r); ctx.arcTo(x+w,y+h,x,y+h,r); ctx.arcTo(x,y+h,x,y,r); ctx.arcTo(x,y,x+w,y,r); ctx.closePath(); }
+  function hideTimer(){
+    timerBubble.style.display='none';
+    if(countdownInterval){clearInterval(countdownInterval); countdownInterval=null;}
+  }
+
+  function startTimer(seconds,autoAdvance,label){
+    timerBubble.style.display='block';
+    let remaining=seconds;
+    timerBubble.textContent=`${label} — ${formatTime(remaining)}`;
+    if(countdownInterval)clearInterval(countdownInterval);
+    countdownInterval=setInterval(()=>{
+      remaining--;
+      timerBubble.textContent=`${label} — ${formatTime(remaining)}`;
+      if(remaining<=0){
+        clearInterval(countdownInterval); countdownInterval=null;
+        timerBubble.style.display='none';
+        if(steps[idx]&&steps[idx].id===4)showOverlay(false);
+        if(autoAdvance)nextStep();
+      }
+    },1000);
+  }
+
+  const formatTime=s=>(s<10?'0':'')+s;
 
   function showStep(i){
-    const s = steps[i];
-    titleEl.textContent = s.title;
-    noteEl.textContent = s.note || '';
-    if (s.image){
-      imgEl.src = s.image;
-      imgEl.style.display = 'block';
-    } else {
-      imgEl.style.display = 'none';
-    }
-
-    if (s.camera){
-      cameraArea.style.display = 'block';
-      openCameraIfNeeded();
-    } else {
-      cameraArea.style.display = 'none';
-      if (i === steps.length -1) stopCamera();
-    }
-
-    // timers and overlay rules
-    // alignment check is id === 4 per this list
-    if (s.id === 4){
-      showOverlay(true);
-      startTimer(s.timer, true, s.title);
-    } else if (s.timer && s.timer > 0){
-      showOverlay(false);
-      startTimer(s.timer, true, s.title);
-    } else {
-      showOverlay(false);
-      hideTimer();
-    }
-
-    backBtn.disabled = (i === 0);
-    updateProgress();
+    const s=steps[i];
+    titleEl.textContent=s.title; noteEl.textContent=s.note||'';
+    if(s.image){imgEl.src=s.image;imgEl.style.display='block';} else imgEl.style.display='none';
+    if(s.camera){cameraArea.style.display='block';} else {cameraArea.style.display='none'; if(i===steps.length-1)stopCamera();}
+    if(s.id===4){showOverlay(true); startTimer(s.timer,true,s.title);}
+    else if(s.timer>0){showOverlay(false); startTimer(s.timer,true,s.title);}
+    else {showOverlay(false); hideTimer();}
+    backBtn.disabled=(i===0); updateProgress();
   }
 
-  function hideTimer(){ timerBubble.style.display = 'none'; if (countdownInterval) { clearInterval(countdownInterval); countdownInterval = null; } }
+  function nextStep(){if(idx>=steps.length-1)return; idx++; showStep(idx);}
+  function prevStep(){if(idx<=0)return; hideTimer(); showOverlay(false); idx--; showStep(idx);}
+  nextBtn.addEventListener('click',()=>{hideTimer(); showOverlay(false); nextStep();});
+  backBtn.addEventListener('click',prevStep);
 
-  function startTimer(seconds, autoAdvance, label){
-    timerBubble.style.display = 'block';
-    let remaining = seconds;
-    timerBubble.textContent = `${label} — ${formatTime(remaining)}`;
-    if (countdownInterval) clearInterval(countdownInterval);
-    countdownInterval = setInterval(()=> {
-      remaining--;
-      timerBubble.textContent = `${label} — ${formatTime(remaining)}`;
-      if (remaining <= 0){
-        clearInterval(countdownInterval); countdownInterval = null;
-        timerBubble.style.display = 'none';
-        if (steps[idx] && steps[idx].id === 4) showOverlay(false);
-        if (autoAdvance) nextStep();
-      }
-    }, 1000);
-  }
-
-  function formatTime(s){
-    const mm = Math.floor(s/60), ss = s%60;
-    return (mm>0? mm+':':'') + (ss<10? '0'+ss: ss);
-  }
-
-  async function nextStep(){
-    if (idx >= steps.length -1) return;
-    idx++;
-    showStep(idx);
-  }
-  function prevStep(){
-    if (idx <= 0) return;
-    if (countdownInterval){ clearInterval(countdownInterval); countdownInterval = null; timerBubble.style.display='none'; }
-    showOverlay(false);
-    idx--;
-    showStep(idx);
-  }
-
-  nextBtn.addEventListener('click', ()=>{
-    if (countdownInterval){ clearInterval(countdownInterval); countdownInterval = null; timerBubble.style.display='none'; }
-    showOverlay(false);
-    nextStep();
-  });
-  backBtn.addEventListener('click', prevStep);
-
-  // initialize
   showStep(idx);
-  document.getElementById('year').textContent = new Date().getFullYear();
-  window.addEventListener('beforeunload', ()=> stopCamera());
+  document.getElementById('year').textContent=new Date().getFullYear();
+  window.addEventListener('beforeunload',()=>stopCamera());
 })();
 </script>
 </body>
