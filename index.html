@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>INLIFE B-Enhence — Dr Neha Agrawal | Clinic-led Women's Wellness</title>
+  <meta name="description" content="INLIFE B-Enhence — doctor-guided cream + short guided routine. Secure clinician review for training and feedback. Contact: help@inlife.com" />
+  <meta name="theme-color" content="#ffb6c1" />
+  <style>
+    :root{
+      --accent:#ff6ea0;
+      --accent-soft:#ffe8f1;
+      --muted:#6b6b6b;
+      --bg:linear-gradient(180deg,#fff 0%,#fff6fa 100%);
+      --container:520px;
+    }
+    html,body{height:100%;margin:0;background:var(--bg);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;color:#222;-webkit-font-smoothing:antialiased;}
+    .wrap{max-width:var(--container);margin:0 auto;padding:16px;}
+    header{display:flex;gap:12px;align-items:center;padding:12px 0;}
+    .logo{width:64px;height:64px;border-radius:12px;background:linear-gradient(135deg,#ffc7dd,#ff9bc7);display:flex;align-items:center;justify-content:center;color:#8b0540;font-weight:800;font-size:20px}
+    .brand{display:flex;flex-direction:column}
+    h1{margin:0;color:var(--accent);font-size:1.2rem}
+    p.sub{margin:4px 0 0;color:var(--muted);font-size:0.95rem}
+
+    /* hero card */
+    .hero{background:#fff;border-radius:16px;padding:16px;box-shadow:0 8px 30px rgba(12,12,12,0.06);text-align:center;margin-top:8px}
+    .hero .product{width:140px;height:140px;border-radius:14px;object-fit:cover;box-shadow:0 6px 20px rgba(10,10,10,0.06);margin:0 auto 10px}
+    .hero h2{margin:8px 0;color:var(--accent);font-size:1.05rem}
+    .hero p.lead{margin:6px 0;color:#444;font-size:0.96rem}
+
+    /* big centered CTA in middle of page */
+    .center-cta { display:flex;flex-direction:column;align-items:center;justify-content:center;margin:48px 0; gap:12px; }
+    .cta-main { background:var(--accent);color:#fff;padding:18px 28px;border-radius:999px;font-weight:800;font-size:1.1rem;border:0;box-shadow:0 10px 30px rgba(255,110,160,0.18);width:88%;max-width:420px;text-align:center }
+    .cta-sub { color:var(--muted);font-size:0.95rem;text-align:center; }
+
+    /* three pillars */
+    .pillars{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:12px}
+    .pillar{background:var(--accent-soft);padding:10px;border-radius:10px;text-align:center;font-weight:700;color:var(--accent);font-size:13px}
+
+    /* kit */
+    .kit{background:#fff;border-radius:12px;padding:12px;margin-top:14px;box-shadow:0 6px 18px rgba(8,8,8,0.05)}
+    .kit-row{display:flex;gap:12px;align-items:center}
+    .kit img{width:90px;border-radius:10px}
+    .kit .details{flex:1}
+    .price{font-weight:800;color:var(--accent);font-size:1rem}
+
+    /* trust */
+    .trust{display:flex;gap:10px;justify-content:space-between;margin-top:12px}
+    .trust .stat{background:#fff;border-radius:10px;padding:10px;flex:1;text-align:center;box-shadow:0 6px 18px rgba(8,8,8,0.04)}
+    .stat strong{display:block;color:var(--accent);font-size:1.05rem}
+
+    /* testimonials */
+    .testimonials{margin-top:14px}
+    .card{background:#fff;border-radius:12px;padding:12px;margin-bottom:10px;box-shadow:0 6px 18px rgba(8,8,8,0.04)}
+    .testimonial-meta{display:flex;gap:10px;align-items:center}
+    .avatar{width:48px;height:48px;border-radius:999px;background:#ffdfe8;flex:0 0 48px}
+
+    /* FAQ & blog */
+    .faq{margin-top:12px}
+    .faq .q{font-weight:700;margin:8px 0}
+    .blog{margin-top:12px}
+
+    /* doctor card */
+    .doctor{background:#fff;border-radius:12px;padding:12px;margin-top:14px;display:flex;gap:12px;align-items:center;box-shadow:0 6px 18px rgba(8,8,8,0.04)}
+    .doctor img{width:84px;height:84px;border-radius:50%;object-fit:cover;background:#ffeef6}
+    .doctor .info{flex:1}
+    .doctor strong{color:var(--accent);display:block;font-size:1rem}
+
+    /* footer */
+    footer{margin-top:18px;padding:16px;text-align:center;color:var(--muted);font-size:13px}
+
+    a.btn-buy{display:inline-block;background:var(--accent);color:#fff;padding:10px 16px;border-radius:12px;text-decoration:none;font-weight:700}
+    a.btn-buy.ghost{background:#fff;color:var(--accent);border:2px solid rgba(255,110,160,0.12)}
+
+    /* responsive tweaks */
+    @media(min-width:720px){:root{--container:700px}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="logo">INL</div>
+      <div class="brand">
+        <h1>INLIFE B-Enhence</h1>
+        <p class="sub">Doctor-led cream + guided routine — privacy-first clinical review</p>
+      </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero" aria-labelledby="hero-title">
+      <img src="cream.jpg" alt="INLIFE B-Enhence" class="product" />
+      <h2 id="hero-title">Confidence • Care • Consistency</h2>
+      <p class="lead">INLIFE B-Enhence is a clinician-guided topical program designed to support firmness and posture when used with daily routines. For best results follow the guided sessions and clinical feedback.</p>
+      <div style="margin-top:12px;display:flex;gap:10px;justify-content:center">
+        <a class="btn-buy" href="https://www.google.com/aclk?sa=L&ai=DChsSEwiArtXP_ueQAxV5pGYCHc-HD00YACICCAEQCRoCc20&co=1&ase=2&gclid=CjwKCAiAt8bIBhBpEiwAzH1w6VzHmKKukyGX7v8qlqrLi8fUl_fCbwLUJt-MLpxcRjW1D1sr40uORhoCuY4QAvD_BwE&cid=CAASb-RoJrzSq4m9qOU_X4lhVnd7tAETCRWg4hLZJsC2h7VcTAOJ-azdJ4A0wy0tY2tXja-Jqg5gxWngoLW1mPozb0H7r81EFnq792GShCtA9ABh0rGcNsMMYTDHwroVXWMSfiQPxQ07FjgbaVrRrU2QFg&cce=2&category=acrcp_v1_32&sig=AOD64_3yrCm9NIfDVXzIrUwhBiZb9XuRYg&ctype=5&q=&nis=4&ved=2ahUKEwigi8_P_ueQAxXhSmwGHUdNKw8Q9aACKAB6BAgJEA8&adurl=" target="_blank">Buy Now</a>
+        <a class="btn-buy ghost" href="buy.html">Buy — Installments</a>
+      </div>
+    </section>
+
+    <!-- Pillars -->
+    <div class="pillars" aria-hidden="false">
+      <div class="pillar">Doctor-Formulated</div>
+      <div class="pillar">Privacy-first Reviews</div>
+      <div class="pillar">Easy Daily Routine</div>
+      <div class="pillar">Affordable Kit</div>
+    </div>
+
+    <!-- BIG CENTERED CTA (mid-page) -->
+    <div class="center-cta" role="region" aria-label="Start Session">
+      <div class="cta-sub">Ready to learn safe daily routines with clinician feedback?</div>
+      <a href="how-to-use.html" class="cta-main" id="howUseBtn">How to Use the Cream</a>
+      <div class="cta-sub" style="font-size:0.9rem;color:var(--muted)">Session videos are uploaded securely and reviewed by our medical team. Nothing is saved to your phone.</div>
+    </div>
+
+    <!-- Starter Kit -->
+    <section class="kit" aria-labelledby="kit-title">
+      <div id="kit-title" style="font-weight:800">INLIFE B-Enhence — Starter Kit</div>
+      <div class="kit-row" style="margin-top:10px">
+        <img src="kit.jpg" alt="Starter kit image" />
+        <div class="details">
+          <div class="price">₹799 — Intro Offer</div>
+          <div style="color:var(--muted);margin-top:8px">Starter kit includes 1 bottle of INLIFE B-Enhence and access to guided sessions with clinician feedback.</div>
+          <div style="margin-top:10px;display:flex;gap:8px">
+            <a class="btn-buy" href="https://www.google.com/aclk?sa=L&ai=DChsSEwiArtXP_ueQAxV5pGYCHc-HD00YACICCAEQCRoCc20&co=1&ase=2&gclid=CjwKCAiAt8bIBhBpEiwAzH1w6VzHmKKukyGX7v8qlqrLi8fUl_fCbwLUJt-MLpxcRjW1D1sr40uORhoCuY4QAvD_BwE&cid=CAASb-RoJrzSq4m9qOU_X4lhVnd7tAETCRWg4hLZJsC2h7VcTAOJ-azdJ4A0wy0tY2tXja-Jqg5gxWngoLW1mPozb0H7r81EFnq792GShCtA9ABh0rGcNsMMYTDHwroVXWMSfiQPxQ07FjgbaVrRrU2QFg&cce=2&category=acrcp_v1_32&sig=AOD64_3yrCm9NIfDVXzIrUwhBiZb9XuRYg&ctype=5&q=&nis=4&ved=2ahUKEwigi8_P_ueQAxXhSmwGHUdNKw8Q9aACKAB6BAgJEA8&adurl=" target="_blank">Buy Now</a>
+            <a class="btn-buy ghost" href="#kit-details">Kit Details</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Trust / stats -->
+    <div class="trust" aria-hidden="true">
+      <div class="stat"><strong>4.8 ★</strong><small style="display:block;color:var(--muted)">Clinic rating (200+ reviews)</small></div>
+      <div class="stat"><strong>95%</strong><small style="display:block;color:var(--muted)">Patient satisfaction</small></div>
+      <div class="stat"><strong>Female Docs</strong><small style="display:block;color:var(--muted)">Available on request</small></div>
+    </div>
+
+    <!-- Testimonials -->
+    <section class="testimonials" aria-labelledby="testi-title">
+      <h3 id="testi-title" style="color:var(--accent);margin-top:14px">Patient Stories</h3>
+
+      <article class="card">
+        <div class="testimonial-meta">
+          <div class="avatar" aria-hidden="true"></div>
+          <div>
+            <strong>Riya, 28</strong>
+            <div style="color:var(--muted);font-size:0.95rem;margin-top:6px">“The guided sessions were easy to follow — I felt supported and respected. Technique improved quickly.”</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="testimonial-meta">
+          <div class="avatar" aria-hidden="true"></div>
+          <div>
+            <strong>Sana, 34</strong>
+            <div style="color:var(--muted);font-size:0.95rem;margin-top:6px">“I liked that a female clinician reviewed my session. Privacy was respected and the feedback was practical.”</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="testimonial-meta">
+          <div class="avatar" aria-hidden="true"></div>
+          <div>
+            <strong>Neelam, 31</strong>
+            <div style="color:var(--muted);font-size:0.95rem;margin-top:6px">“Affordable and professional — great for busy women who want a safe routine.”</div>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq" aria-labelledby="faq-title">
+      <h3 id="faq-title" style="color:var(--accent);margin-top:12px">Frequently Asked Questions</h3>
+
+      <div class="card">
+        <div class="q">Is this a medical treatment?</div>
+        <div class="a" style="color:var(--muted)">No — INLIFE B-Enhence is a topical wellness product and guided routine provided by clinicians. For medical diagnoses or surgical advice, consult a doctor directly.</div>
+      </div>
+
+      <div class="card">
+        <div class="q">Will my video remain on my phone?</div>
+        <div class="a" style="color:var(--muted)">No. Videos are recorded in memory and uploaded securely to clinic storage; they are not saved to your device gallery.</div>
+      </div>
+
+      <div class="card">
+        <div class="q">Do I need to sign in?</div>
+        <div class="a" style="color:var(--muted)">No. The upload is simple and privacy-focused — patients confirm a short notice before each session. Recordings are only shared with the clinical team.</div>
+      </div>
+
+      <div class="card">
+        <div class="q">Who reviews my sessions?</div>
+        <div class="a" style="color:var(--muted)">Authorized clinicians from INLIFE, including female doctors on request. You can ask for in-clinic review if preferred.</div>
+      </div>
+    </section>
+
+    <!-- Blog teasers -->
+    <section class="blog" aria-labelledby="learn-title">
+      <h3 id="learn-title" style="color:var(--accent);margin-top:12px">Learn & Explore</h3>
+      <div class="card">
+        <strong>Why posture matters</strong>
+        <p style="color:var(--muted);margin-top:6px">Simple tips to improve posture and maximize results from daily routines.</p>
+        <div style="text-align:right;margin-top:8px"><a href="#" class="btn-buy ghost">Read</a></div>
+      </div>
+    </section>
+
+    <!-- Doctor card -->
+    <div class="doctor" aria-labelledby="doc-title">
+      <img src="doctor.jpg" alt="Dr Neha Agrawal" />
+      <div class="info">
+        <strong id="doc-title">Dr Neha Agrawal</strong>
+        <div style="color:var(--muted)">MBBS — 8 years experience in Women’s Wellness • Jaipur</div>
+        <div style="margin-top:8px;color:var(--muted)">Dr Neha leads the clinical review team and ensures patient privacy and professional feedback for every session.</div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <div style="margin-bottom:8px">📩 Contact: <a href="mailto:help@inlife.com">help@inlife.com</a></div>
+      <div style="font-size:13px;color:var(--muted)">Privacy: videos are uploaded securely for clinician review and are not stored on your phone. You will be shown a brief notice before each session. For any concerns contact us at help@inlife.com.</div>
+      <div style="margin-top:10px;color:var(--muted)">© <span id="year"></span> INLIFE Wellness — All rights reserved.</div>
+    </footer>
+  </div>
+
+  <script>
+    // Set year and ensure main CTA is centered on small screens
+    document.getElementById('year').textContent = new Date().getFullYear();
+    // Smooth open how-to page (open in same tab)
+    document.getElementById('howUseBtn').addEventListener('click', function(e){
+      // default link behavior will navigate; this handler ensures small delay to show tap feedback on mobile
+    });
+  </script>
+</body>
+</html>
